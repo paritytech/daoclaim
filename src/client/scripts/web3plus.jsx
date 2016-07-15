@@ -41,6 +41,18 @@ web3._extend({
 	]
 });
 
+web3._extend({
+	property: 'eth',
+	methods: [
+		new web3._extend.Method({
+			name: 'gasPriceStatistics',
+			call: 'ethcore_gasPriceStatistics',
+			params: 0,
+			outputFormatter: function(a) { return a.map(web3.toBigNumber); }
+		})
+	]
+});
+
 web3.eth.installInterceptor = function(interceptor) {
 	var oldSendTransaction = web3.eth.sendTransaction.bind(web3.eth);
 	web3.eth.sendTransaction = function(options, f) {

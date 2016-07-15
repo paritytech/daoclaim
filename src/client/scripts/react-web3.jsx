@@ -52,10 +52,13 @@ function splitValue(a) {
 
 export class Balance extends React.Component {
 	render () {
-		var s = splitValue(this.props.value);
+		var v = new BigNumber(this.props.value);
+		var isNeg = v.lt(0);
+		var s = splitValue(v.mul(isNeg ? -1 : 1));
 		var a = ('' + s.base.mul(1000).round().div(1000)).replace(/(\d)(?=(\d{3})+$)/g, "$1,");
 		return (
 			<span className={'_balance _' + denominations[s.denom]}>
+				{isNeg ? "-" : this.props.signed ? "+" : ""}
 				{a}
 				<span className="_denom">
 					{denominations[s.denom]}
@@ -105,7 +108,9 @@ export class AccountBalance extends React.Component {
 
 	updateState() {
 		this.setState({
-			balance: web3.eth.getBalance(this.props.address)
+			balance: typeof this.props.address == 'object' ?
+				this.props.address.map(addr => web3.eth.getBalance(addr)).reduce((a, b) => a.add(b), new BigNumber(0)) :
+				web3.eth.getBalance(this.props.address)
 		});
 	}
 

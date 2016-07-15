@@ -1,7 +1,7 @@
 {
-  "name": "chicken",
+  "name": "daoclaim",
   "version": "1.0.0",
-  "description": "A very simple multiplayer economic game.",
+  "description": "Withdraw contract interface",
   "main": "webpack.config.js",
   "dependencies": {
     "babel": "^6.5.2",
@@ -35,13 +35,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ethcore/chicken.git"
+    "url": "git+https://github.com/ethcore/daoclaim.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ethcore/chicken/issues"
+    "url": "https://github.com/ethcore/daoclaim/issues"
   },
-  "homepage": "https://github.com/ethcore/chicken#readme"
+  "homepage": "https://github.com/ethcore/daoclaim#readme"
 }
