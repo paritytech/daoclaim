@@ -27,8 +27,22 @@ export class InteractionConsole extends React.Component {
 			var b = this.props.dao.balanceOf(addr);
 			if (+b > new BigNumber(0)) {
 				if (+web3.eth.getBalance(addr) > 0) {
-					this.props.dao.approve(this.props.withdraw.address, b, {from: addr});
-					this.props.withdraw.withdraw({from: addr, gas: 500000});
+					this.props.dao.approve(this.props.withdraw.address, b, {from: addr}, (e, r) => {
+						console.log("e=" + JSON.stringify(e) + "; r=" + JSON.stringify(r));
+						if (e) {
+							alert("Error authorising DAO token transfer!" + e);
+						} else {
+							this.props.withdraw.withdraw({from: addr, gas: 500000}, (e, r) => {
+								if (e) {
+									alert("Error withdrawing!" + e);
+								} else {
+									// all good!
+									alert("All good!");
+								}
+							});
+						}
+					});
+					
 				} else {
 					alert("Cannot afford to get refund for address " + addr + ". Ensure there is at least 0.001 ETH in the account.");
 				}
