@@ -3,3 +3,4 @@ bin/
 dist/bundle.js
 package/
 chicken.sublime*
+.DS_Store
